@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///config-repo
+          # Alternatively, use an actual GitHub repository:
+          # uri: https://github.com/yourusername/lms-config
+          # username: ${GIT_USERNAME}
+          # password: ${GIT_PASSWORD}
+          search-paths: '*'
+          default-label: main 

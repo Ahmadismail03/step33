@@ -1,0 +1,58 @@
+# Course Service Configuration
+
+server:
+  port: 8084
+
+spring:
+  application:
+    name: course-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/course_service_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 
+  
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+
+# Feign client configuration
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+# Logging for troubleshooting
+logging:
+  level:
+    com.example.course: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+# JWT Configuration
+app:
+  jwtSecret: 9a4f2c8d3b7e1a5f2c8d3b7e1a5f2c8d3b7e1a5f2c8d3b7e1a5f2c8d3b7e1a5f
+  jwtExpirationInMs: 86400000 
